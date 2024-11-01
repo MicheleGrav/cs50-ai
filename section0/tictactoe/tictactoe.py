@@ -141,7 +141,7 @@ def minimax(board):
     current_player = player(board)
 
     # Initialize best action
-    best_actions = []
+    best_action = None
     alpha = -math.inf
     beta = math.inf
 
@@ -151,26 +151,18 @@ def minimax(board):
             value = minimax_value(result(board, action), alpha, beta, False)
             if value > best_value:
                 best_value = value
-                best_actions = [action]
-            elif value == best_value:
-                best_actions.append(action)
+                best_action = action
             alpha = max(alpha, best_value)
-            if beta <= alpha:
-                break
     else:  # Minimizing for O
         best_value = math.inf
         for action in actions(board):
             value = minimax_value(result(board, action), alpha, beta, True)
             if value < best_value:
                 best_value = value
-                best_actions = [action]
-            elif value == best_value:
-                best_actions.append(action)
+                best_action = action
             beta = min(beta, best_value)
-            if beta <= alpha:
-                break
 
-    return random.choice(best_actions)
+    return best_action
 
 
 def minimax_value(board, alpha, beta, is_maximizing):

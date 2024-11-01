@@ -1,10 +1,22 @@
 import pygame
+import os
 import sys
 import time
 
 import tictactoe as ttt
 
 pygame.init()
+
+# Function to get the correct path for PyInstaller or development
+def resource_path(relative_path):
+    """ Get the absolute path to the resource, works for dev and PyInstaller """
+    try:
+        # PyInstaller creates a temporary folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 size = width, height = 600, 400
 
 # Colors
@@ -12,13 +24,17 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
-icon = pygame.image.load('tic-tac-toe.png')
-pygame.display.set_caption('My Tic-Tac-Toe')
-pygame.display.set_icon(icon)
 
-mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
-largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
-moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
+font_path = resource_path("OpenSans-Regular.ttf")
+
+icon_path = resource_path("tic-tac-toe.png")  # Use your actual icon image file name
+icon = pygame.image.load(icon_path)
+pygame.display.set_icon(icon)
+pygame.display.set_caption("MyTictactoe")
+
+mediumFont = pygame.font.Font(font_path, 28)
+largeFont = pygame.font.Font(font_path, 40)
+moveFont = pygame.font.Font(font_path, 60)
 
 user = None
 board = ttt.initial_state()
