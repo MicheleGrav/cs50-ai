@@ -12,6 +12,9 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 
 screen = pygame.display.set_mode(size)
+icon = pygame.image.load('tic-tac-toe.png')
+pygame.display.set_caption('My Tic-Tac-Toe')
+pygame.display.set_icon(icon)
 
 mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
 largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
